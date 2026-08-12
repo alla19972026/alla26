@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>التسجيل في دروس الدعم</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f4f7fb;color:#172033}
+.hero{background:linear-gradient(135deg,#102f55,#1976b9);color:#fff;padding:42px 20px 72px;text-align:center}
+.badge{display:inline-block;background:rgba(255,255,255,.16);padding:7px 15px;border-radius:30px;font-size:14px;margin-bottom:14px}
+.hero h1{margin:0 0 8px;font-size:32px}.hero p{margin:0;font-size:17px;opacity:.92}
+.teachers{max-width:760px;margin:-30px auto 25px;padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.teacher{background:#fff;border-radius:17px;padding:18px;text-align:center;box-shadow:0 7px 22px rgba(20,50,90,.09)}
+.teacher .icon{font-size:30px}.teacher strong{display:block;margin:7px 0 4px;font-size:17px}.teacher span{color:#687487;font-size:14px}
+.card{max-width:560px;margin:0 auto 35px;background:#fff;border-radius:22px;padding:28px;box-shadow:0 12px 35px rgba(20,50,90,.12)}
+h2{text-align:center;margin:0 0 22px;font-size:22px}.field{margin:17px 0}
+label{display:block;margin-bottom:8px;font-weight:bold}input,select{width:100%;padding:14px;border:1px solid #d9e1ea;border-radius:12px;font-size:16px;background:#fff;outline:none}
+input:focus,select:focus{border-color:#1683c7;box-shadow:0 0 0 3px rgba(22,131,199,.1)}
+button{width:100%;margin-top:10px;padding:15px;border:0;border-radius:13px;background:#1683c7;color:#fff;font-size:18px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.65}.note{text-align:center;color:#6b7788;font-size:13px;margin-top:15px}
+.success{display:none;text-align:center;padding:22px;background:#eefaf3;border-radius:14px;color:#14733d;margin-top:18px}
+.footer{text-align:center;color:#7a8492;font-size:13px;padding-bottom:30px}
+@media(max-width:600px){.hero{padding:35px 18px 62px}.hero h1{font-size:27px}.teachers{grid-template-columns:1fr;margin-top:-25px}.card{margin:0 14px 30px;padding:22px}}
+</style>
+</head>
+<body>
+<section class="hero">
+<div class="badge">🟢 التسجيلات مفتوحة</div>
+<h1>التسجيل في دروس الدعم</h1>
+<p>السنة الدراسية 2026 / 2027</p>
+</section>
+
+<section class="teachers">
+<div class="teacher"><div class="icon">📐</div><strong>الأستاذ معصم علاء الدين</strong><span>مادة الرياضيات</span></div>
+<div class="teacher"><div class="icon">⚛️</div><strong>الأستاذ نصر الدين زروق</strong><span>مادة العلوم الفيزيائية</span></div>
+</section>
+
+<main class="card">
+<h2>📝 استمارة التسجيل</h2>
+<form id="form" action="https://script.google.com/macros/s/AKfycbzEYZ1pw2b3iyir_XmGGmqZpV1kHGClVDtVHsSfc4ik5FmextCHopLsbW8s6Jw7uIdE/exec" method="POST" target="hidden_iframe">
+
+<div class="field"><label>الاسم واللقب</label>
+<input name="name" required placeholder="أدخل الاسم واللقب"></div>
+
+<div class="field"><label>المستوى الدراسي</label>
+<select id="level" name="level" required>
+<option value="">اختر المستوى</option>
+<option value="الأولى ثانوي">الأولى ثانوي</option>
+<option value="الثانية ثانوي">الثانية ثانوي</option>
+<option value="الثالثة ثانوي">الثالثة ثانوي</option>
+</select></div>
+
+<div class="field"><label>المادة</label>
+<select id="subject" name="subject" required disabled>
+<option value="">اختر المستوى أولًا</option>
+</select></div>
+
+<div class="field"><label>الشعبة</label>
+<select id="branch" name="branch" required disabled>
+<option value="">اختر المادة أولًا</option>
+</select></div>
+
+<div class="field"><label>علامة المادة في آخر سنة دراسية</label>
+<input id="mark" name="mark" type="number" min="0" max="20" step="0.01" placeholder="مثال: 15.50" required></div>
+
+<div class="field"><label>رقم الهاتف</label>
+<input name="phone" type="tel" inputmode="tel" placeholder="05 / 06 / 07 xx xx xx xx" required></div>
+
+<button id="btn" type="submit">إرسال التسجيل</button>
+<p class="note">يرجى التأكد من صحة المعلومات ورقم الهاتف قبل الإرسال.</p>
+</form>
+
+<iframe name="hidden_iframe" style="display:none"></iframe>
+<div id="success" class="success"><b>✅ تم تسجيل طلبكم بنجاح</b><br>سيتم التواصل معكم لتأكيد التسجيل.</div>
+</main>
+
+<div class="footer">دروس الدعم • 2026 / 2027</div>
+
+<script>
+const level = document.getElementById("level");
+const subject = document.getElementById("subject");
+const branch = document.getElementById("branch");
+const markLabel = document.querySelector('label[for="mark"]');
+
+const subjects = {
+  "الأولى ثانوي": ["الرياضيات", "العلوم الفيزيائية"],
+  "الثانية ثانوي": ["الرياضيات", "العلوم الفيزيائية"],
+  "الثالثة ثانوي": ["الرياضيات", "العلوم الفيزيائية"]
+};
+
+const branches = {
+  "الأولى ثانوي": ["جذع مشترك علوم وتكنولوجيا"],
+  "الثانية ثانوي": ["رياضيات", "علوم تجريبية", "تقني رياضي"],
+  "الثالثة ثانوي": ["رياضيات", "علوم تجريبية", "تقني رياضي"]
+};
+
+level.addEventListener("change", function() {
+  subject.innerHTML = '<option value="">اختر المادة</option>';
+  branch.innerHTML = '<option value="">اختر المادة أولًا</option>';
+  branch.disabled = true;
+  const list = subjects[this.value] || [];
+  list.forEach(function(item) {
+    const o = document.createElement("option"); o.value=item; o.textContent=item; subject.appendChild(o);
+  });
+  subject.disabled = list.length === 0;
+});
+
+subject.addEventListener("change", function() {
+  branch.innerHTML = '<option value="">اختر الشعبة</option>';
+  const list = branches[level.value] || [];
+  list.forEach(function(item) {
+    const o=document.createElement("option"); o.value=item; o.textContent=item; branch.appendChild(o);
+  });
+  branch.disabled = list.length === 0;
+  markLabel.textContent = "علامة " + (this.value || "المادة") + " في آخر سنة دراسية";
+});
+
+document.getElementById("form").addEventListener("submit", function(e) {
+  const mark = Number(document.getElementById("mark").value);
+  if(mark<0||mark>20){e.preventDefault();alert("الرجاء إدخال علامة بين 0 و20.");return;}
+  const btn=document.getElementById("btn");btn.disabled=true;btn.textContent="جاري إرسال التسجيل...";
+  setTimeout(function(){document.getElementById("form").style.display="none";document.getElementById("success").style.display="block";},1200);
+});
+</script>
+</body>
+</html>
